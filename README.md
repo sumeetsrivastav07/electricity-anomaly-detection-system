@@ -61,14 +61,19 @@ Automatically generates human-readable electricity usage insights and recommenda
 
 ## Homepage
 
-![Homepage](assets/screenshots/homepage.png)
+![Homepage](./assets/screenshots/homepage.png)
 
 ---
 
 ## Analytics Dashboard
 
-![Dashboard](assets/screenshots/dashboard.png)
+![Dashboard](./assets/screenshots/dashboard.png)
 
+---
+
+## Dark Mode Dashboard
+
+![Dark Mode](./assets/screenshots/darkmode.png)
 ---
 
 ## Dark Mode Dashboard
