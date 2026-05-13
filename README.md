@@ -76,11 +76,9 @@ Automatically generates human-readable electricity usage insights and recommenda
 ![Dark Mode](./assets/screenshots/darkmode.png)
 ---
 
-## Dark Mode Dashboard
 
-![Dark Mode](assets/screenshots/darkmode.png)
 
----
+
 
 # 📊 Dashboard Features
 
