@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Detection Results
+    </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',
+    filename='css/style.css') }}">
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            <span class="navbar-brand">
+
+                Electricity Anomaly Detection System
+
+            </span>
+
+            <button id="dark-mode-toggle" class="btn btn-light">
+
+                Toggle Dark Mode
+
+            </button>
+
+        </div>
+
+    </nav>
+    <div class="container py-5">
+
+        <h1 class="text-center mb-5 dashboard-title"></h1>
+        Electricity Anomaly Detection Dashboard
+        </h1>
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="card shadow">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            Total Records
+                        </h5>
+
+                        <h2>
+                            {{ total_records }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row g-4 mt-3">
+
+                <div class="col-md-4">
+
+                    <div class="card shadow border-danger">
+
+                        <div class="card-body text-center">
+
+                            <h5>
+                                High Severity
+                            </h5>
+
+                            <h2>
+                                {{ high_count }}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card shadow border-warning">
+
+                        <div class="card-body text-center">
+
+                            <h5>
+                                Medium Severity
+                            </h5>
+
+                            <h2>
+                                {{ medium_count }}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card shadow border-success">
+
+                        <div class="card-body text-center">
+
+                            <h5>
+                                Low Severity
+                            </h5>
+
+                            <h2>
+                                {{ low_count }}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <div class="card shadow border-warning">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            Rule-Based
+                        </h5>
+
+                        <h2>
+                            {{ rule_anomalies }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card shadow border-danger">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            Isolation Forest
+                        </h5>
+
+                        <h2>
+                            {{ ml_anomalies }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card shadow border-success">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            Hybrid Detection
+                        </h5>
+
+                        <h2>
+                            {{ hybrid_anomalies }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card shadow mt-5">
+
+            <div class="card-body">
+
+                <h3 class="mb-4">
+                    Anomaly Visualization
+                </h3>
+
+                <img src="{{ plot_path }}" class="img-fluid">
+
+            </div>
+
+        </div>
+        <div class="card shadow mt-5">
+
+            <div class="card-body">
+
+                <h3 class="mb-4">
+                    Severity Distribution
+                </h3>
+
+                <div class="text-center">
+
+                    <img src="{{ pie_chart_path }}" class="img-fluid">
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card shadow mt-5">
+
+            <div class="card-body">
+
+                <h3 class="mb-4">
+                    Electricity Usage Heatmap
+                </h3>
+
+                <div class="text-center">
+
+                    <img src="{{ heatmap_path }}" class="img-fluid">
+
+                </div>
+
+            </div>
+            <div class="card shadow mt-5">
+
+                <div class="card-body">
+
+                    <h3 class="mb-4">
+                        AI-Generated Insights
+                    </h3>
+
+                    <ul class="list-group">
+
+                        {% for insight in insights %}
+
+                        <li class="list-group-item">
+
+                            {{ insight }}
+
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="card shadow mt-5">
+
+                <div class="card-body">
+
+                    <h3 class="mb-4">
+                        Interactive Electricity Analysis
+                    </h3>
+
+                    {{ interactive_plot | safe }}
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card-body">
+
+            <h3 class="mb-4">
+
+                Top High-Risk Anomalies
+
+            </h3>
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>
+                                Timestamp
+                            </th>
+
+                            <th>
+                                Power Usage
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Anomaly Score
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for index, row in top_anomalies.iterrows() %}
+
+                        <tr>
+
+                            <td>
+                                {{ index }}
+                            </td>
+
+                            <td>
+                                {{ row['Global_active_power'] }}
+                            </td>
+
+                            <td>
+
+                                {% if row['Severity'] == 'High' %}
+
+                                <span class="badge bg-danger">
+
+                                    High
+
+                                </span>
+
+                                {% elif row['Severity'] == 'Medium' %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Medium
+
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge bg-success">
+
+                                    Low
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ row['Anomaly_Score'] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+        <div class="text-center mt-5">
+
+            <a href="/download-report" class="btn btn-success btn-lg">
+                Download Anomaly Report
+            </a>
+
+        </div>
+        <div class="text-center mt-5">
+
+            <a href="/" class="btn btn-primary">
+                Upload Another Dataset
+            </a>
+
+        </div>
+
+    </div>
+    <div class="footer">
+
+        ML-Powered Electricity Monitoring Dashboard
+
+    </div>
+</body>
+
+</html>
